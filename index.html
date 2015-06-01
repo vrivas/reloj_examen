@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Reloj Examen</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script>
+            var signals = ["_____", "-____", "_-___", "__-__", "___-_", "____-"];
+            var params = {'Asignatura': ''
+                , 'Titulacion': ''
+                , 'Fecha': ''
+                , 'Aulas': ''
+                , 'HoraInicio': ''
+                , 'HoraFin': ''
+                , 'Comentarios': ''
+            };
+            var firstTime = true;
+            function getQueryParams() {
+                qs = location.search.substring(1);
+                qs = qs.split("+").join(" ");
+                var params = {}, tokens,
+                        re = /[?&]?([^=]+)=([^&]*)/g;
+                while (tokens = re.exec(qs)) {
+                    params[decodeURIComponent(tokens[1])]
+                            = decodeURIComponent(tokens[2]);
+                }
+
+                return params;
+            }
+            function getParams() {
+                var cad = location.search.substring(1);
+                if (cad.length) {
+                    var parejas = [];
+                    parejas = cad.split("&");
+                    for (var i = 0; i < parejas.length; ++i) {
+                        var par = parejas[i].split("=");
+                        params[par[0]] = par[1]
+                                .replace(/\+/g, " ")
+                                .replace(/%3A/g, ":")
+                                .replace(/%2C/g, ",");
+                    }
+                }
+            }
+
+            function writeParams() {
+                var campos = ['Asignatura'
+                            , 'Titulacion'
+                            , 'Fecha'
+                            , 'Aulas'
+                            , 'HoraInicio'
+                            , 'HoraFin'
+                            , 'Comentarios'
+                ];
+                for (var i = 0; i < campos.length; ++i) {
+                    $('#' + campos[i]).val(decodeURI(params[campos[i]]));
+                }
+
+                var now = new Date();
+                $("#Fecha").val(now.getDate() + "-" + (now.getMonth() + 1) + "-" + now.getFullYear());
+            }
+
+            function timers() {
+                var now = new Date();
+                $("#HoraActual").html(showHoursMinutes(now))
+
+                $("#Movil").html(signals[now.getSeconds() % signals.length]);
+
+                var end = new Date();
+                end.setHours(eval($("#HoraFin").val().split(":")[0]));
+                end.setMinutes(eval($("#HoraFin").val().split(":")[1]));
+                now.setSeconds(0, 0);
+                end.setSeconds(0);
+                var dif = Math.trunc((end - now) / 60000);
+                if (!isNaN(dif)) {
+                    var horas = Math.trunc(dif / 60);
+                    var minutos = Math.trunc(dif % 60);
+                    var msje = ((dif > 0) ? "Quedan " : "El tiempo acabó hace ")
+                            + ((horas != 0) ? (Math.abs(horas) + " horas y ") : "")
+                            + (Math.abs(minutos)) + " minutos";
+                    $("#divDerecha").addClass((horas <= 0 && minutos <= 0) ? "rojo" : "transparente");
+                } else {
+                    var msje = "<em>Indique una hora de finalización del examen, por favor.</em>";
+                    $("#divDerecha").addClass("transparente");
+                }
+                $("#Quedan").html(msje);
+                $("#MostrarComentarios").html($('#Comentarios').val());
+            }
+
+            function initTimers(millisecs) {
+                millisecs = (typeof millisecs == 'undefined') ? 1000 : millisecs;
+                if (firstTime) {
+                    timers();
+                    firstTime = false;
+                }
+                setInterval(timers, 500);
+            }
+
+            function showHoursMinutes(moment) {
+                return (((tmp = moment.getHours()) < 10) ? "0" : "") + tmp
+                        + ":"
+                        + (((tmp = moment.getMinutes()) < 10) ? "0" : "") + tmp;
+
+            }
+        </script>
+        <style>
+            * {
+                font-family: Arial, Helvetica, Sans;
+            }
+            input{
+                border: 0pt;
+                font-size: 1em;
+                background-color: inherit;
+                border-bottom: 1px solid #ddd;
+                color: inherit;
+
+            }
+            input:hover {
+                background-color: #ddd;
+            }
+            input:focus {
+                background-color: #ddf;
+                color: #229;
+            }
+            input[type="Submit"] {
+                margin-right: 1em;
+            }
+            #divIzquierda, #divDerecha {
+                width: 49%;
+            }
+            #divIzquierda {
+                float: left;
+            }
+            #divDerecha {
+                float: right;
+            }
+
+            #divDerecha {
+                text-align: center;
+            }
+
+            .rojo {
+                background-color: #daa;
+            }
+            .transparente {
+                background-color: inherit;
+            }
+            label {
+                width: 22%;
+                display: block;
+                float: left;
+                padding: 0pt;
+                margin: 0pt;
+            }
+            h1 {
+                font-size: 150%;    
+            }
+            h3 {
+                font-size: 120%;
+            }
+            #quedan, #HoraActual {
+                font-size: 190%;
+            }
+            body {
+                margin: 10px;
+            }
+
+            select {
+                font-size: 70%;
+            }
+
+            .well-victor{
+                background: rgb(22, 105, 173);
+                color: #fff;
+            }
+
+            #datos {
+                margin-left: 3em;
+                font-size: 80%;
+            }
+            
+            #MostrarComentarios {
+                font-style: italic;
+                color: #118;
+                font-size: 120%;
+            }
+        </style>
+
+        <script>
+            $(function () {
+                /*$("#Ahora").click(function () {
+                 var now = new Date();
+                 var tmp;
+                 var toShow = (((tmp = now.getHours()) < 10) ? "0" : "") + tmp
+                 + ":"
+                 + (((tmp = now.getMinutes()) < 10) ? "0" : "") + tmp;
+                 $("#HoraInicio").val(toShow);
+                 });*/
+                $("#Ahora").change(function () {
+                    if (this.value) {
+                        var now = new Date();
+                        $("#HoraInicio").val(showHoursMinutes(now));
+
+                        now.setMinutes(now.getMinutes() + eval(this.value));
+                        $("#HoraFin").val(showHoursMinutes(now));
+                    }
+                });
+                $("#HoraInicio").blur(function () {
+                    var tmp = this.value.toUpperCase();
+                    this.value = (tmp == "AHORA" || tmp == "'AHORA'" || tmp == "\"AHORA\"") ? showHoursMinutes(new Date()) : this.value;
+                });
+
+                $("#HoraFin").blur(function () {
+                    if (this.value.indexOf(":") != -1)
+                        return;
+                    var minutes = eval(this.value);
+                    var now = new Date();
+                    now.setMinutes(now.getMinutes() + minutes);
+                    this.value = showHoursMinutes(now);
+                });
+
+                $("#ocultar").click(function () {
+                    if ($('#divIzquierda').is(':hidden')) {
+                        $('#titulo').html("Reloj para exámenes");
+                        $('#divDerecha').css('width', '49%');
+                        $('#divIzquierda').fadeIn();
+                        $('#datos').fadeOut();
+                        $('#iconMostrar').removeClass("glyphicon-forward")
+                                .addClass("glyphicon-backward");
+                    } else {
+                        $('#titulo').html($('#Asignatura').val() + ", de " + $('#HoraInicio').val() + " a " + $('#HoraFin').val());
+                        $('#divDerecha').css('width', '100%');
+                        $('#divIzquierda').fadeOut();
+                        $('#datos').fadeIn();
+                        $('#iconMostrar').addClass("glyphicon-forward")
+                                .removeClass("glyphicon-backward");
+                    }
+                });
+                getParams();
+                writeParams();
+                initTimers(200);
+            });</script>
+    </head>
+    <body>
+
+        <h1 class="well well-victor well-lg" id="titulo">Reloj para exámenes</h1>
+        <div title="Pulse para ocultar o mostrar el formulario" id="ocultar"><span id="iconMostrar" class="glyphicon glyphicon-backward" aria-hidden="true"></span><span id="datos"></span></div>
+        <div class="well well-lg" id="divIzquierda">
+            <form name="f1" id="f1" action="./" method="GET"  title="Pulse para modificar">
+                <h3><label for="Asignatura">Asignatura:</label><input type="text" id="Asignatura" name="Asignatura" value="" size="50"></h3>
+                <h3><label for="Titulacion">Titulación:</label><input type="text" id="Titulacion" name="Titulacion" value="" size="50"></h3>
+                <h3><label for="Fecha"
+                           title="La fecha es el único campo no modificable">Fecha:</label>
+                    <input type="text" id="Fecha" name="Fecha" value="" size="10" placeholder="dd-mm-aaaa" readonly
+                           title="La fecha es el único campo no modificable"></h3>
+                <h3><label for="Aulas">Aulas:</label><input type="text" id="Aulas" name="Aulas" value="" size="30"></h3>
+                <h3><label for="HoraInicio">Hora inicio:</label>
+                    <input type="text" id="HoraInicio" name="HoraInicio" value="" size="10" placeholder="hh:mm"
+                           title="Introduzca la hora de inicio con formato hh:mm o escriba simplemente 'ahora'"></h3>
+                <h3><label for="HoraFin">Hora fin:</label>
+                    <input type="text" id="HoraFin" name="HoraFin" value="" size="10"
+                           title="Introduzca la hora de final con formato hh:mm o escriba el número de minutos que dura el examen, p.ej.: 90"
+                           placeholder="hh:mm ">
+                    <select name="Ahora" id="Ahora">
+                        <option value="">&lt; Edite o seleccione</option>
+                        <option value="60">Ahora +1h</option>
+                        <option value="90">Ahora +1h30m</option>
+                        <option value="120">Ahora +2h</option>
+                        <option value="150">Ahora +2h30m</option>
+                        <option value="180">Ahora +3h</option>
+                        <option value="210">Ahora +3h30m</option>
+                        <option value="240">Ahora +4h</option>
+                    </select>
+                </h3>
+                <h3><label for="Comentarios">Comentarios:</label>
+                    <textarea id="Comentarios" name="Comentarios" cols="45"></textarea>
+                </h3>
+                <div style="text-align: right;"><input type="Submit" class="btn btn-primary" value="Actualizar"><input type="Reset" class="btn btn-primary" value="Limpiar"></div>
+            </form>
+        </div>
+        <div id="divDerecha">
+            <h1 style="margin-top: 5em;">Son las <span id="HoraActual"></span> horas</h1>
+            <h3><span id="Quedan"></span></h3>
+            <h3><span id="Movil"></span></h3>
+            <h3><span id="MostrarComentarios"></span></h3>
+        </div>
+    </body>
+
+</html>
