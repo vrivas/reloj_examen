@@ -10,127 +10,6 @@
 
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-        <script>
-            var params = {'Asignatura': ''
-                , 'Titulacion': ''
-                , 'Fecha': ''
-                , 'Aulas': ''
-                , 'HoraInicio': ''
-                , 'HoraFin': ''
-                , 'Comentarios': ''
-            };
-            var firstTime = true;
-            function getQueryParams() {
-                qs = location.search.substring(1);
-                qs = qs.split("+").join(" ");
-                var params = {}, tokens,
-                        re = /[?&]?([^=]+)=([^&]*)/g;
-                while (tokens = re.exec(qs)) {
-                    params[decodeURIComponent(tokens[1])]
-                            = decodeURIComponent(tokens[2]);
-                }
-
-                return params;
-            }
-            function getParams() {
-                var cad = location.search.substring(1);
-                if (cad.length) {
-                    var parejas = [];
-                    parejas = cad.split("&");
-                    for (var i = 0; i < parejas.length; ++i) {
-                        var par = parejas[i].split("=");
-                        params[par[0]] = par[1]
-                                .replace(/\+/g, " ")
-                                .replace(/%3A/g, ":")
-                                .replace(/%2C/g, ",");
-                    }
-                }
-            }
-
-            function writeParams() {
-                var campos = ['Asignatura'
-                            , 'Titulacion'
-                            , 'Fecha'
-                            , 'Aulas'
-                            , 'HoraInicio'
-                            , 'HoraFin'
-                            , 'Comentarios'
-                ];
-                for (var i = 0; i < campos.length; ++i) {
-                    $('#' + campos[i]).val(decodeURI(params[campos[i]]));
-                }
-
-                var now = new Date();
-                $("#Fecha").val(now.getDate() + "-" + (now.getMonth() + 1) + "-" + now.getFullYear());
-            }
-
-            function timers() {
-                var now = new Date();
-                var end = new Date();
-                var init = new Date();
-                now.setSeconds(0, 0);
-
-                init.setHours(eval($("#HoraInicio").val().split(":")[0]));
-                init.setMinutes(eval($("#HoraInicio").val().split(":")[1]));
-                init.setSeconds(0, 0);
-
-                end.setHours(eval($("#HoraFin").val().split(":")[0]));
-                end.setMinutes(eval($("#HoraFin").val().split(":")[1]));
-                end.setSeconds(0);
-
-                // Diferencia en segundos entre la hora actual y la de final
-                var dif = Math.trunc((end - now) / 60000);
-
-                //Calculamos el porcentaje para la barra de progreso  
-                var porc = Math.trunc(100 * (now - init) / (end - init) + 0.5);
-                porc = (porc > 100) ? 100 : porc;
-
-
-                // Escribimos resultados
-                if (!isNaN(dif)) {
-                    var horas = Math.trunc(dif / 60);
-                    var minutos = Math.trunc(dif % 60);
-                    var msje = ((dif > 0) ? "Quedan " : "El tiempo acabó hace ")
-                            + ((horas != 0) ? (Math.abs(horas) + " horas y ") : "")
-                            + (Math.abs(minutos)) + " minutos";
-                    if (horas <= 0 && minutos <= 10) {
-                        $("#Quedan").css("color", "red");
-                        $("#PorcProgress").addClass("progress-bar-danger");
-                    } else {
-
-                        $("#Quedan").css("color", "inherit");
-                        $("#PorcProgress").removeClass("progress-bar-danger");
-                    }
-                } else {
-                    var msje = "<em>Indique una hora de finalización del examen, por favor.</em>";
-                    $("#divDerecha").addClass("transparente");
-                    $("#Quedan").css("color", "inherit");
-                }
-
-
-                $("#HoraActual").html(showHoursMinutes(now))
-                $("#PorcProgress").css("width", porc + "%");
-                $("#Porcentaje").html(porc);
-                $("#Quedan").html(msje);
-                $("#MostrarComentarios").html($('#Comentarios').val());
-            }
-
-            function initTimers(millisecs) {
-                millisecs = (typeof millisecs == 'undefined') ? 1000 : millisecs;
-                if (firstTime) {
-                    timers();
-                    firstTime = false;
-                }
-                setInterval(timers, millisecs);
-            }
-
-            function showHoursMinutes(moment) {
-                return (((tmp = moment.getHours()) < 10) ? "0" : "") + tmp
-                        + ":"
-                        + (((tmp = moment.getMinutes()) < 10) ? "0" : "") + tmp;
-
-            }
-        </script>
         <style>
             * {
                 font-family: Arial, Helvetica, Sans;
@@ -223,6 +102,137 @@
             }
         </style>
 
+
+        <script>
+            var params = {'Asignatura': ''
+                , 'Titulacion': ''
+                , 'Fecha': ''
+                , 'Aulas': ''
+                , 'HoraInicio': ''
+                , 'HoraFin': ''
+                , 'Comentarios': ''
+            };
+            var firstTime = true;
+            function getQueryParams() {
+                qs = location.search.substring(1);
+                qs = qs.split("+").join(" ");
+                var params = {}, tokens,
+                        re = /[?&]?([^=]+)=([^&]*)/g;
+                while (tokens = re.exec(qs)) {
+                    params[decodeURIComponent(tokens[1])]
+                            = decodeURIComponent(tokens[2]);
+                }
+
+                return params;
+            }
+            function getParams() {
+                var cad = location.search.substring(1);
+                if (cad.length) {
+                    var parejas = [];
+                    parejas = cad.split("&");
+                    for (var i = 0; i < parejas.length; ++i) {
+                        var par = parejas[i].split("=");
+                        params[par[0]] = par[1]
+                                .replace(/\+/g, " ")
+                                .replace(/%3A/g, ":")
+                                .replace(/%2C/g, ",");
+                    }
+                }
+            }
+
+            function writeParams() {
+                var campos = ['Asignatura'
+                            , 'Titulacion'
+                            , 'Fecha'
+                            , 'Aulas'
+                            , 'HoraInicio'
+                            , 'HoraFin'
+                            , 'Comentarios'
+                ];
+                for (var i = 0; i < campos.length; ++i) {
+                    $('#' + campos[i]).val(decodeURI(params[campos[i]]));
+                }
+
+                if( $('#Fecha').val()=="" ) {
+                    $("#Fecha").val(showDayMonthYear(new Date()));
+                }
+            }
+
+            function timers() {
+                var now = new Date();
+                var end = new Date();
+                var init = new Date();
+                now.setSeconds(0, 0);
+
+                init.setHours(eval($("#HoraInicio").val().split(":")[0]));
+                init.setMinutes(eval($("#HoraInicio").val().split(":")[1]));
+                init.setSeconds(0, 0);
+
+                end.setHours(eval($("#HoraFin").val().split(":")[0]));
+                end.setMinutes(eval($("#HoraFin").val().split(":")[1]));
+                end.setSeconds(0);
+
+                // Diferencia en segundos entre la hora actual y la de final
+                var dif = Math.trunc((end - now) / 60000);
+
+                //Calculamos el porcentaje para la barra de progreso  
+                var porc = Math.trunc(100 * (now - init) / (end - init) + 0.5);
+                porc = (porc > 100) ? 100 : porc;
+
+
+                // Escribimos resultados
+                if (!isNaN(dif)) {
+                    var horas = Math.trunc(dif / 60);
+                    var minutos = Math.trunc(dif % 60);
+                    var msje = ((dif > 0) ? "Quedan " : "El tiempo acabó hace ")
+                            + ((horas != 0) ? (Math.abs(horas) + " horas y ") : "")
+                            + (Math.abs(minutos)) + " minutos";
+                    if (horas <= 0 && minutos <= 10) {
+                        $("#Quedan").css("color", "red");
+                        $("#PorcProgress").addClass("progress-bar-danger");
+                    } else {
+
+                        $("#Quedan").css("color", "inherit");
+                        $("#PorcProgress").removeClass("progress-bar-danger");
+                    }
+                } else {
+                    var msje = "<em>Indique una hora de finalización del examen, por favor.</em>";
+                    $("#divDerecha").addClass("transparente");
+                    $("#Quedan").css("color", "inherit");
+                }
+
+
+                $("#HoraActual").html(showHoursMinutes(now))
+                $("#PorcProgress").css("width", porc + "%");
+                $("#Porcentaje").html(porc);
+                $("#Quedan").html(msje);
+                $("#MostrarComentarios").html($('#Comentarios').val());
+            }
+
+            function initTimers(millisecs) {
+                millisecs = (typeof millisecs == 'undefined') ? 1000 : millisecs;
+                if (firstTime) {
+                    timers();
+                    firstTime = false;
+                }
+                setInterval(timers, millisecs);
+            }
+
+            function showHoursMinutes(moment) {
+                return (((tmp = moment.getHours()) < 10) ? "0" : "") + tmp
+                        + ":"
+                        + (((tmp = moment.getMinutes()) < 10) ? "0" : "") + tmp;
+
+            }
+            function showDayMonthYear(moment) {
+                return (((tmp = moment.getDate()) < 10) ? "0" : "") + tmp
+                        + "-"
+                        + (((tmp = moment.getMonth() + 1) < 10) ? "0" : "") + tmp
+                        + "-"
+                        + moment.getFullYear();
+
+            }
+        </script>
         <script>
             $(function () {
                 /*$("#Ahora").click(function () {
@@ -245,6 +255,10 @@
                 $("#HoraInicio").blur(function () {
                     var tmp = this.value.toUpperCase();
                     this.value = (tmp == "AHORA" || tmp == "'AHORA'" || tmp == "\"AHORA\"") ? showHoursMinutes(new Date()) : this.value;
+                });
+                $("#Fecha").blur(function () {
+                    var tmp = this.value.toUpperCase();
+                    this.value = (tmp == "HOY" || tmp == "'HOY'" || tmp == "\"HOY\"") ? showDayMonthYear(new Date()) : this.value;
                 });
 
                 $("#HoraFin").blur(function () {
@@ -287,14 +301,16 @@
                 <h3><label for="Asignatura">Asignatura:</label><input type="text" id="Asignatura" name="Asignatura" value="" size="50"></h3>
                 <h3><label for="Titulacion">Titulación:</label><input type="text" id="Titulacion" name="Titulacion" value="" size="50"></h3>
                 <h3><label for="Fecha"
-                           title="La fecha es el único campo no modificable">Fecha:</label>
-                    <input type="text" id="Fecha" name="Fecha" value="" size="10" placeholder="dd-mm-aaaa" readonly
-                           title="La fecha es el único campo no modificable"></h3>
+                           title="Introduzca la fecha con formato dd-mm-aaaa o escriba simplemente 'hoy'">Fecha:</label>
+                    <input type="text" id="Fecha" name="Fecha" value="" size="10" placeholder="dd-mm-aaaa" 
+                           title="Introduzca la fecha con formato dd-mm-aaaa o escriba simplemente 'hoy'"></h3>
                 <h3><label for="Aulas">Aulas:</label><input type="text" id="Aulas" name="Aulas" value="" size="30"></h3>
-                <h3><label for="HoraInicio">Hora inicio:</label>
+                <h3><label for="HoraInicio"
+                           title="Introduzca la hora de inicio con formato hh:mm o escriba simplemente 'ahora'">Hora inicio:</label>
                     <input type="text" id="HoraInicio" name="HoraInicio" value="" size="10" placeholder="hh:mm"
                            title="Introduzca la hora de inicio con formato hh:mm o escriba simplemente 'ahora'"></h3>
-                <h3><label for="HoraFin">Hora fin:</label>
+                <h3><label for="HoraFin"
+                           title="Introduzca la hora de final con formato hh:mm o escriba el número de minutos que dura el examen, p.ej.: 90">Hora fin:</label>
                     <input type="text" id="HoraFin" name="HoraFin" value="" size="10"
                            title="Introduzca la hora de final con formato hh:mm o escriba el número de minutos que dura el examen, p.ej.: 90"
                            placeholder="hh:mm ">
