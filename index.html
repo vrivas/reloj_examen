@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>Reloj Examen</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -13,6 +13,14 @@
         <style>
             * {
                 font-family: Arial, Helvetica, Sans;
+            }
+            body {
+              color: black;
+              background-color: white;
+            }
+            body.contraste {
+              color: white;
+              background-color: black;
             }
             input{
                 border: 0pt;
@@ -61,7 +69,7 @@
                 margin: 0pt;
             }
             h1 {
-                font-size: 150%;    
+                font-size: 150%;
             }
 
             h3 {
@@ -74,7 +82,7 @@
             #Quedan{
                 font-size: 4em;
             }
-           
+
 
             body {
                 margin: 10px;
@@ -183,7 +191,7 @@
                 // Diferencia en segundos entre la hora actual y la de final
                 var dif = Math.trunc((end - now) / 60000);
 
-                //Calculamos el porcentaje para la barra de progreso  
+                //Calculamos el porcentaje para la barra de progreso
                 var porc = Math.trunc(100 * (now - init) / (end - init) + 0.5);
                 porc = (porc > 100) ? 100 : porc;
 
@@ -286,6 +294,7 @@
                         $('#datos').fadeOut();
                         $('#iconMostrar').removeClass("glyphicon-forward")
                                 .addClass("glyphicon-backward");
+                        $( "body").removeClass( "contraste");
                     } else {
                         $('#titulo').html($('#Asignatura').val() + ", de " + $('#HoraInicio').val() + " a " + $('#HoraFin').val());
                         $('#divDerecha').css('width', '100%');
@@ -293,6 +302,7 @@
                         $('#datos').fadeIn();
                         $('#iconMostrar').addClass("glyphicon-forward")
                                 .removeClass("glyphicon-backward");
+                        $( "body").addClass( "contraste");
 
 
                     }
@@ -312,7 +322,7 @@
                 <h3><label for="Titulacion">Titulación:</label><input type="text" id="Titulacion" name="Titulacion" value="" size="50"></h3>
                 <h3><label for="Fecha"
                            title="Introduzca la fecha con formato dd-mm-aaaa o escriba simplemente 'hoy'">Fecha:</label>
-                    <input type="text" id="Fecha" name="Fecha" value="" size="10" placeholder="dd-mm-aaaa" 
+                    <input type="text" id="Fecha" name="Fecha" value="" size="10" placeholder="dd-mm-aaaa"
                            title="Introduzca la fecha con formato dd-mm-aaaa o escriba simplemente 'hoy'"></h3>
                 <h3><label for="Aulas">Aulas:</label><input type="text" id="Aulas" name="Aulas" value="" size="30"></h3>
                 <h3><label for="HoraInicio"
