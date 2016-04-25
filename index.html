@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>>
 
     <head>
         <meta charset="utf-8">
         <title>Reloj Examen</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -15,12 +17,12 @@
                 font-family: Arial, Helvetica, Sans;
             }
             body {
-              color: black;
-              background-color: white;
+                color: black;
+                background-color: white;
             }
             body.contraste {
-              color: white;
-              background-color: black;
+                color: white;
+                background-color: black;
             }
             input{
                 border: 0pt;
@@ -294,7 +296,7 @@
                         $('#datos').fadeOut();
                         $('#iconMostrar').removeClass("glyphicon-forward")
                                 .addClass("glyphicon-backward");
-                        $( "body").removeClass( "contraste");
+                        $("body").removeClass("contraste");
                     } else {
                         $('#titulo').html($('#Asignatura').val() + ", de " + $('#HoraInicio').val() + " a " + $('#HoraFin').val());
                         $('#divDerecha').css('width', '100%');
@@ -302,7 +304,7 @@
                         $('#datos').fadeIn();
                         $('#iconMostrar').addClass("glyphicon-forward")
                                 .removeClass("glyphicon-backward");
-                        $( "body").addClass( "contraste");
+                        $("body").addClass("contraste");
 
 
                     }
