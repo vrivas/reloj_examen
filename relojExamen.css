@@ -1,0 +1,115 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25-abr-2016, 19:26:08
+    Author     : vrivas
+*/
+
+* {
+    font-family: Arial, Helvetica, Sans;
+}
+body {
+    color: black;
+    background-color: white;
+}
+body.contraste {
+    color: white;
+    background-color: black;
+}
+input{
+    border: 0pt;
+    font-size: 1em;
+    background-color: inherit;
+    border-bottom: 1px solid #ddd;
+    color: inherit;
+
+}
+input:hover {
+    background-color: #ddd;
+}
+input:focus {
+    background-color: #ddf;
+    color: #229;
+}
+input[type="Submit"] {
+    margin-right: 1em;
+}
+#divIzquierda, #divDerecha {
+    width: 49%;
+}
+#divIzquierda {
+    float: left;
+}
+#divDerecha {
+    float: right;
+    margin: 0 auto 0 auto;
+}
+
+#divDerecha {
+    text-align: center;
+}
+
+.rojo {
+    background-color: #daa;
+}
+.transparente {
+    background-color: inherit;
+}
+label {
+    width: 22%;
+    display: block;
+    float: left;
+    padding: 0pt;
+    margin: 0pt;
+}
+h1 {
+    font-size: 150%;
+}
+
+h3 {
+    font-size: 120%;
+}
+.HoraActual {
+    margin-top: 2em;
+    font-size: 3em;
+}
+#Quedan{
+    font-size: 4em;
+}
+
+
+body {
+    margin: 10px;
+}
+
+select {
+    font-size: 70%;
+}
+
+.well-victor{
+    background: rgb(22, 105, 173);
+    color: #fff;
+}
+
+#datos {
+    margin-left: 3em;
+    font-size: 80%;
+}
+
+#MostrarComentarios {
+    font-style: italic;
+    color: #118;
+    font-size: 120%;
+}
+
+.progress {
+    height: 2em;
+}
+.progress-bar{
+
+    padding-top: 0.25em;
+    font-size: 120%;
+}
