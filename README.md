@@ -13,4 +13,4 @@ Ten en cuenta que los datos no se almacenan en ningún sitio, pero cuando pulsas
 * Si escribes HOY en la fecha, al salir de ese campo automáticamente se pondrá la fecha de hoy
 * Si escribes AHORA en la hora de inicio, al salir de ese campo se pondrá automáticamente la hora que es
 * Si escribes un solo número (por ejemplo, 120) en la hora de final, se entenderá que son los minutos que durá el examen y se calculará la hora de fin usando dichos minutos.
-..otro punto más, y ahora en una rama
+..otro punto más, y ahora en una rama por ejemplo
