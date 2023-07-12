@@ -198,11 +198,12 @@
 
                 // Escribimos resultados
                 if (!isNaN(dif)) {
-                    var horas = Math.trunc(dif / 60);
-                    var minutos = Math.trunc(dif % 60);
-                    var msje = ((dif > 0) ? "Quedan " : "El tiempo acabó hace ")
-                            + ((horas != 0) ? (Math.abs(horas) + " horas y ") : "")
-                            + (Math.abs(minutos)) + " minutos";
+                    var horas = Math.abs(Math.trunc(dif / 60));
+                    var minutos = Math.abs(Math.trunc(dif % 60));
+                    let quedan = (horas==1?"Queda":(minutos==1?"Queda":"Quedan"))+" ";
+                    var msje = ((dif > 0) ? quedan : "El tiempo acabó hace ")
+                            + ((horas != 0) ? (horas + " hora"+(horas!=1?"s":"")+" y ") : "")
+                            + minutos + " minuto"+(minutos!=1?"s":"");
                     if (horas <= 0 && minutos <= 10) {
                         $("#Quedan").css("color", "red");
                         $("#PorcProgress").addClass("progress-bar-danger");
