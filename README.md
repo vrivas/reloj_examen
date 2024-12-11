@@ -5,9 +5,10 @@ Muestra un reloj en el que indica qué hora es y cuánto falta para que el exame
 
 En los últimos 10 mintos, la barra de progreso se vuelve de color rojo.
 
-Para usarlo accede a http://vrivas.es/reloj_examen
+Para usarlo accede a https://vrivas.github.io/reloj_examen
+Ten en cuenta que los datos no se almacenan en ningún sitio, pero cuando pulsas el botón ACTUALIZAR quedan guardados en la URL, por lo que si copias y pegas esa URL en cualquier lado tendrás directamente un enlace para el examen una vez configurado. 
 
-Ten en cuenta que los datos no se almacenan en ningún sitio, pero cuando pulsas el botón ACTUALIZAR quedan guardados en la URL, por lo que si copias y pegas esa URL en cualquier lado tendrás directamente un enlace para el examen una vez configurado. Puedes ver un ejemplo en https://vrivas.wordpress.com/2015/06/01/reloj-para-el-examen-de-poo/
+Puedes ver un ejemplo en https://vrivas.github.io/reloj_examen/?Asignatura=Fundamentos+de+la+Programaci%C3%B3n&Titulacion=&Fecha=11-12-2024&Aulas=&HoraInicio=08%3A45&HoraFin=10%3A20&Ahora=&Comentarios=
 
 ### Algunos trucos
 * Si escribes HOY en la fecha, al salir de ese campo automáticamente se pondrá la fecha de hoy
